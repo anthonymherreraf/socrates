@@ -1,0 +1,344 @@
+{% extends "base_generic.html" %}
+
+{% block style %}
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet' />
+
+{% endblock %}
+
+
+
+{% block title %}Contacto Directo{% endblock %}
+
+
+{% block sidebar %}
+
+
+<!--
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.41.0/mapbox-gl.css' rel='stylesheet' />
+-->
+
+<style type="text/css">
+  
+.nav>li>a{
+  padding: 5px 15px;
+  text-align: center;
+}
+
+
+#map { 
+  position:absolute; 
+  top:100px; 
+  bottom:0; 
+  width:75%; 
+  height: 350px;
+}
+
+/*
+#map { 
+  position:absolute; 
+  top:0; 
+  bottom:0; 
+  width:100%;
+}
+*/
+
+</style>
+
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="{% url 'index' %}" class="site_title"> <span>Socrates</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+
+		
+  
+            <div class="profile clearfix">
+
+              <div class="profile_info">
+                <span>Bienvenid@ {{ currentuser.first_name }} {{ currentuser.last_name }}</span>
+    
+              </div>
+            </div>
+	
+
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section" style="padding-left: 5px; padding-right: 5px;">
+                <!-- <h3>General</h3> -->
+
+
+
+
+                <select id="provincia" style=" margin-bottom: 15px;">
+                  <option value="provincia"> Provincias </option>
+
+                    {% for provincia in provincias %}
+
+                    <option value="{{ provincia }}"> {{ provincia }} </option>
+
+                    {% endfor %}
+                </select>
+
+                <br>
+
+                <select id="ciudad" style=" margin-bottom: 15px;">
+                  <option value="ciudad"> Ciudades </option>
+                </select>
+
+                <br>
+
+                <select id="nombre" style=" margin-bottom: 15px;">
+                  <option value="nombre"> Nombres </option>
+                </select>
+
+                <br>
+
+
+
+              </div>
+
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+            <!-- 
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+            -->
+              <a data-toggle="tooltip" data-placement="top" title="Cerrar sesión" href="{% url 'logout' %}">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+
+<h1 style="text-align: left;">Contacto Directo</h1>
+
+
+<div id='map'></div>
+
+
+
+{% if tipo == "administrador" %}
+
+<form action="{% url 'contacto_directo' %}" method="post" enctype="multipart/form-data">
+{% csrf_token %}
+
+  <h4 style="padding: 10px 0px;">Ingrese su archivo .csv</h4>
+  <input style="padding: 10px 0px;" type="file" name="csv_file" />
+  <input type="submit" value="Subir" />
+
+</form>
+
+{% endif %}
+
+<h4 style="text-align: center;"> {{ mensaje }} </h4>
+
+
+
+
+<script type="text/javascript">
+  
+/*
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYW50aG9ueWgiLCJhIjoiY2o5MGMzY2c5Mnl6bjM0bXJuNnlyMWZmaCJ9.Q0VABADy68PX22RWkPKiMw';
+
+  var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+      //center: [-74.50, 40], // starting position [lng, lat]
+      //center: [-0.21861, -78.50972], // starting position [lng, lat] quito
+      //center: [10.5, -66.93333], // starting position [lng, lat] caracas
+      //center: [-79.6217625,0.8078195], // starting position [lng, lat] esmeraldas
+      center: [-78.50972,-0.21861], // starting position [lng, lat] quito
+      zoom: 6 // starting zoom
+  });
+*/
+
+
+  $(document).ready(function(){
+
+
+// mapboxgl.accessToken = 'pk.eyJ1IjoiYW50aG9ueWgiLCJhIjoiY2o5MGMzY2c5Mnl6bjM0bXJuNnlyMWZmaCJ9.Q0VABADy68PX22RWkPKiMw';
+
+
+
+/*
+    $.ajax({
+      type: "GET",
+      url: "/main/get/contactos/",
+      dataType: 'json',
+      success: function(data) {
+
+        console.log(data);
+
+
+      //alert(data);
+      }
+    });
+*/
+
+
+/*
+    var map = new mapboxgl.Map({
+        container: 'map', // container id
+        style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+        //center: [-74.50, 40], // starting position [lng, lat]
+        center: [-0.1806532, -78.4678382], // starting position [lng, lat]
+        zoom: 9 // starting zoom
+    });
+*/
+
+
+
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYW50aG9ueWgiLCJhIjoiY2o5MGMzY2c5Mnl6bjM0bXJuNnlyMWZmaCJ9.Q0VABADy68PX22RWkPKiMw';
+
+  var map = new mapboxgl.Map({
+      container: 'map', // container id
+      style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+      //center: [-74.50, 40], // starting position [lng, lat]
+      //center: [-0.21861, -78.50972], // starting position [lng, lat] quito
+      //center: [10.5, -66.93333], // starting position [lng, lat] caracas
+      //center: [-79.6217625,0.8078195], // starting position [lng, lat] esmeraldas
+      center: [-78.50972,-0.21861], // starting position [lng, lat] quito
+      zoom: 6 // starting zoom
+  });
+
+
+
+
+    $("#provincia").change(function(){
+
+        nombre_provincia = $(this).val();
+        $('#ciudad').children("option").remove();
+        $('#nombre').children("option").remove();
+
+        $('select[id=ciudad]').append(
+             $('<option></option>').val("Ciudades").html("Ciudades").attr("value","ciudad")
+         );
+
+        $('select[id=nombre]').append(
+             $('<option></option>').val("Nombres").html("Nombres").attr("value","nombre")
+         );
+
+
+        if(nombre_provincia != "provincia"){
+
+
+          request_url = '/main/get/contactos1/' + nombre_provincia + '/';
+
+          $.ajax({
+              url: request_url,
+               dataType: 'json', 
+              success: function(data){
+                //console.log(data)
+
+                
+                  $.each(data.ciudades, function(index,text){
+                    //console.log(index + " = " + text)
+                      $('select[id=ciudad]').append(
+                           $('<option></option>').val(text).html(text).attr("value",text)
+                       );
+                  });
+                
+                  var map = new mapboxgl.Map({
+                      container: 'map', // container id
+                      style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+                      center: [data.longitud,data.latitud], // starting position [lng, lat] quito
+                      zoom: 7 // starting zoom
+                  });
+
+              }
+          });
+
+        }
+
+        return false;
+    })
+
+
+
+
+    $("#ciudad").change(function(){
+
+        nombre_ciudad = $(this).val();
+        $('#nombre').children("option").remove();
+
+        $('select[id=nombre]').append(
+             $('<option></option>').val("Nombres").html("Nombres").attr("value","nombre")
+         );
+
+
+        if(nombre_ciudad != "ciudad"){
+
+
+          request_url = '/main/get/contactos2/' + nombre_provincia + '/' + nombre_ciudad + '/';
+
+          $.ajax({
+              url: request_url,
+               dataType: 'json', 
+              success: function(data){
+                console.log(data)
+                  $.each(data.nombres, function(index,text){
+                    //console.log(index + " = " + text)
+                      $('select[id=nombre]').append(
+                           $('<option></option>').val(text).html(text.substr(0,23)).attr("value",text)
+                       );
+                  });
+
+
+
+                  var map = new mapboxgl.Map({
+                      container: 'map', // container id
+                      style: 'mapbox://styles/mapbox/streets-v9', // stylesheet location
+                      center: [data.longitud,data.latitud], // starting position [lng, lat] quito
+                      zoom: 9 // starting zoom
+                  });
+
+
+              }
+          });
+
+        }
+
+        return false;
+    })
+
+
+
+
+
+
+
+
+  });
+
+</script>
+
+{% endblock %}

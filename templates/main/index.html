@@ -1,0 +1,124 @@
+{% extends "base_generic.html" %}
+
+{% block style %}{% endblock %}
+
+
+
+{% block title %}Inicio{% endblock %}
+
+
+{% block sidebar %}
+
+<style type="text/css">
+  
+.nav>li>a{
+  padding: 5px 15px;
+  text-align: center;
+}
+
+</style>
+
+          <div class="left_col scroll-view">
+            <div class="navbar nav_title" style="border: 0;">
+              <a href="{% url 'index' %}" class="site_title"> <span>Socrates</span></a>
+            </div>
+
+            <div class="clearfix"></div>
+
+            <!-- menu profile quick info -->
+
+		
+        <!--
+            <div class="profile clearfix">
+
+              <div class="profile_info">
+                <span>{{ tipo }}</span>
+    
+              </div>
+            </div>
+        -->		
+
+            <!-- /menu profile quick info -->
+
+            <br />
+
+            <!-- sidebar menu -->
+            <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+              <div class="menu_section">
+                <!-- <h3>General</h3> -->
+                <ul class="nav side-menu">
+                  <!--
+                  <li ><a href="{% url 'index' %}" > Inicio </a></li>
+                  -->
+                  <li ><a href="#" > Ingreso de Informaci&oacute;n </a></li>
+                  <li ><a href="#" > Informaci&oacute;n General</a></li>
+                  <li ><a href="#" > Base de Datos Directivos </a></li>
+                  <li ><a href="#" > Estad&iacute;sticas </a></li>
+                  <li ><a href="#" > An&aacute;lisis Hist&oacute;rico</a></li>
+                  <li ><a href="#" > Acci&oacute;n Territorial</a></li>
+                  <li ><a href="#" > Cruce de Variables</a></li>
+                  <li ><a href="#" > Redes Sociales</a></li>
+                  <li ><a href="#" > Estructura del movimineto</a></li>
+                  <li ><a href="#" > Campa&ntilde;a</a></li>
+                  <li ><a href="#" > Estrategia</a></li>
+                  <li ><a href="{% url 'contacto_directo' %}" > Contacto Directo</a></li>
+                  <!-- 
+                  <li><a><i class="fa fa-edit"></i> Forms <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a><i class="fa fa-home"></i> UI Elements <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                  <li><a><i class="fa fa-clone"></i>Layouts <span class="fa fa-chevron-down"></span></a>
+                  </li>
+                   --> 
+				<!--
+                  <li class="{% block pag-tablas %}{% endblock %}"><a href="#" ><i class="fa fa-table"></i> Tablas </a>
+
+                  </li>
+              -->
+
+
+                </ul>
+              </div>
+
+
+            </div>
+            <!-- /sidebar menu -->
+
+            <!-- /menu footer buttons -->
+            <div class="sidebar-footer hidden-small">
+            <!-- 
+              <a data-toggle="tooltip" data-placement="top" title="Settings">
+                <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+                <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
+              </a>
+              <a data-toggle="tooltip" data-placement="top" title="Lock">
+                <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
+              </a>
+            -->
+              <a data-toggle="tooltip" data-placement="top" title="Cerrar sesión" href="{% url 'logout' %}">
+                <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
+              </a>
+            </div>
+            <!-- /menu footer buttons -->
+          </div>
+
+
+{% endblock %}
+
+
+{% block content %}
+
+
+<!--
+<h1 style="text-align: center;">Elija la pagina de vehículos que desea scrapear</h1>
+-->
+
+
+
+
+
+
+
+{% endblock %}
